@@ -1,0 +1,386 @@
+/********** Template CSS **********/
+:root {
+    --primary: #86b916;
+    --secondary: #FE8800;
+    --light: #F5F5F5;
+    --dark: #14141F;
+}
+
+.fw-medium {
+    font-weight: 600 !important;
+}
+
+.fw-semi-bold {
+    font-weight: 700 !important;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 45px;
+    bottom: 45px;
+    z-index: 99;
+}
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+/*** Button ***/
+.btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    transition: .5s;
+}
+
+.btn.btn-primary,
+.btn.btn-secondary {
+    color: #FFFFFF;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    border-radius: 0px;
+}
+
+/* ==========================================================
+   ✅ SINGLE PAGE FIX: Smooth scroll + fixed navbar offset
+   ========================================================== */
+html {
+    scroll-behavior: smooth;
+}
+
+/* When you click navbar links (#about etc.), section title won't hide behind navbar */
+section[id],
+header[id] {
+    scroll-margin-top: 92px;
+}
+
+/* ==========================================================
+   ✅ NAVBAR (Always White + Wide Logo + Fixed-Top support)
+   ========================================================== */
+
+/* Always white like sticky */
+.navbar {
+    background: #fff !important;
+    z-index: 1050;
+}
+
+/* Remove extra spacing from old template */
+.navbar-light {
+    transition: .3s;
+}
+
+/* Wide logo sizing */
+.brand-logo {
+    height: 44px;
+    width: auto;
+    max-width: 260px;
+    object-fit: contain;
+    transition: .3s;
+}
+
+/* Nav link style (always dark because navbar is white) */
+.navbar-light .navbar-nav .nav-link {
+    font-family: 'Nunito', sans-serif;
+    position: relative;
+    margin-left: 22px;
+    padding: 16px 0;
+    color: var(--dark) !important;
+    font-size: 17px;
+    font-weight: 600;
+    outline: none;
+    transition: .3s;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--primary) !important;
+}
+
+/* Underline effect */
+@media (min-width: 992px) {
+    .navbar-light .navbar-nav .nav-link::before {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 2px;
+        bottom: -1px;
+        left: 50%;
+        background: var(--primary);
+        transition: .3s;
+    }
+
+    .navbar-light .navbar-nav .nav-link:hover::before,
+    .navbar-light .navbar-nav .nav-link.active::before {
+        width: calc(100% - 2px);
+        left: 1px;
+    }
+}
+
+/* Mobile fixes */
+@media (max-width: 991.98px) {
+    .brand-logo {
+        height: 40px;
+        max-width: 220px;
+    }
+
+    .navbar-light .navbar-collapse {
+        margin-top: 12px;
+        border-top: 1px solid #DDDDDD;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        padding: 10px 0;
+        margin-left: 0;
+    }
+}
+
+/* ==========================================================
+   ✅ HERO IMAGE SLIDER (Perfect fit under fixed navbar)
+   ========================================================== */
+
+/* IMPORTANT:
+   since navbar is fixed-top, hero must start after navbar height.
+   This makes it correct on all screen sizes. */
+.hero-slider {
+    padding-top: 74px;
+    margin-bottom: 50px; /* same as approx navbar height */
+    background: #fff;
+}
+
+/* Make carousel and slides full height */
+.hero-slider .carousel,
+.hero-slider .carousel-inner,
+.hero-slider .carousel-item {
+    height: calc(70vh - 74px); /* full screen minus navbar */
+    min-height: 520px;
+}
+
+/* Image fit */
+.hero-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Remove any overlay / captions */
+.hero-slider .carousel-item::before {
+    display: none !important;
+}
+
+.hero-slider .carousel-caption {
+    display: none !important;
+}
+
+/* Controls visibility improvement */
+.hero-slider .carousel-control-prev,
+.hero-slider .carousel-control-next {
+    opacity: .85;
+}
+
+.hero-slider .carousel-control-prev:hover,
+.hero-slider .carousel-control-next:hover {
+    opacity: 1;
+}
+
+/* Indicators style (optional subtle) */
+.hero-slider .carousel-indicators [data-bs-target] {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Mobile hero sizing */
+@media (max-width: 767.98px) {
+    .hero-slider {
+        padding-top: 66px;
+    }
+
+    section[id],
+    header[id] {
+        scroll-margin-top: 86px;
+    }
+
+    .hero-slider .carousel,
+    .hero-slider .carousel-inner,
+    .hero-slider .carousel-item {
+        height: calc(72vh - 0px);
+        min-height: 420px;
+    }
+}
+
+/*** Hero Header (OLD template - keep if used elsewhere) ***/
+.hero-header {
+    background: linear-gradient(rgba(20, 20, 31, .7), rgba(20, 20, 31, .7)), url(../img/bg-hero.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, .5);
+}
+
+/*** Section Title ***/
+.section-title {
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.section-title::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 80px);
+    height: 2px;
+    top: 4px;
+    left: -40px;
+    background: var(--primary);
+    z-index: -1;
+}
+
+.section-title::after {
+    position: absolute;
+    content: "";
+    width: calc(100% + 120px);
+    height: 2px;
+    bottom: 5px;
+    left: -60px;
+    background: var(--primary);
+    z-index: -1;
+}
+
+.section-title.text-start::before {
+    width: calc(100% + 40px);
+    left: 0;
+}
+
+.section-title.text-start::after {
+    width: calc(100% + 60px);
+    left: 0;
+}
+
+/*** Service ***/
+.service-item {
+    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+    transition: .5s;
+}
+
+.service-item:hover {
+    background: var(--primary);
+}
+
+.service-item * {
+    transition: .5s;
+}
+
+.service-item:hover * {
+    color: var(--light) !important;
+}
+
+/*** Destination (Markets) ***/
+.destination img {
+    transition: .5s;
+}
+
+.destination a:hover img {
+    transform: scale(1.1);
+}
+
+/*** Footer ***/
+.footer .btn.btn-social {
+    margin-right: 5px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    font-weight: normal;
+    border: 1px solid #FFFFFF;
+    border-radius: 35px;
+    transition: .3s;
+}
+
+.footer .btn.btn-social:hover {
+    color: var(--primary);
+}
+
+.footer .btn.btn-link {
+    display: block;
+    margin-bottom: 5px;
+    padding: 0;
+    text-align: left;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: normal;
+    text-transform: capitalize;
+    transition: .3s;
+}
+
+.footer .btn.btn-link::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.footer .btn.btn-link:hover {
+    letter-spacing: 1px;
+    box-shadow: none;
+}
+
+.footer .copyright {
+    padding: 25px 0;
+    font-size: 15px;
+    border-top: 1px solid rgba(256, 256, 256, .1);
+}
+
+.footer .copyright a {
+    color: var(--light);
+}
+
+.footer .footer-menu a {
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid rgba(255, 255, 255, .1);
+}
+
+.footer .footer-menu a:last-child {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+}
