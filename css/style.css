@@ -4,14 +4,26 @@
     --secondary: #FE8800;
     --light: #F5F5F5;
     --dark: #14141F;
+
+    /* ✅ Nav heights */
+    --nav-h: 78px;
+    --nav-h-m: 70px;
 }
 
-.fw-medium {
-    font-weight: 600 !important;
+.fw-medium { font-weight: 600 !important; }
+.fw-semi-bold { font-weight: 700 !important; }
+
+html { scroll-behavior: smooth; }
+
+/* ✅ Push page content below fixed navbar */
+body {
+    padding-top: var(--nav-h);
 }
 
-.fw-semi-bold {
-    font-weight: 700 !important;
+/* ✅ Prevent section heading hidden under navbar */
+section[id],
+header[id] {
+    scroll-margin-top: 95px;
 }
 
 .back-to-top {
@@ -29,7 +41,6 @@
     transition: opacity .5s ease-out, visibility 0s linear .5s;
     z-index: 99999;
 }
-
 #spinner.show {
     transition: opacity .5s ease-out, visibility 0s linear 0s;
     visibility: visible;
@@ -42,27 +53,12 @@
     font-weight: 600;
     transition: .5s;
 }
-
 .btn.btn-primary,
-.btn.btn-secondary {
-    color: #FFFFFF;
-}
+.btn.btn-secondary { color: #FFFFFF; }
 
-.btn-square {
-    width: 38px;
-    height: 38px;
-}
-
-.btn-sm-square {
-    width: 32px;
-    height: 32px;
-}
-
-.btn-lg-square {
-    width: 48px;
-    height: 48px;
-}
-
+.btn-square { width: 38px; height: 38px; }
+.btn-sm-square { width: 32px; height: 32px; }
+.btn-lg-square { width: 48px; height: 48px; }
 .btn-square,
 .btn-sm-square,
 .btn-lg-square {
@@ -75,43 +71,23 @@
 }
 
 /* ==========================================================
-   ✅ SINGLE PAGE FIX: Smooth scroll + fixed navbar offset
+   ✅ NAVBAR (Logo bigger + active underline + always white)
    ========================================================== */
-html {
-    scroll-behavior: smooth;
-}
-
-/* When you click navbar links (#about etc.), section title won't hide behind navbar */
-section[id],
-header[id] {
-    scroll-margin-top: 92px;
-}
-
-/* ==========================================================
-   ✅ NAVBAR (Always White + Wide Logo + Fixed-Top support)
-   ========================================================== */
-
-/* Always white like sticky */
 .navbar {
     background: #fff !important;
     z-index: 1050;
 }
 
-/* Remove extra spacing from old template */
-.navbar-light {
-    transition: .3s;
-}
-
-/* Wide logo sizing */
+/* ✅ Logo bigger + no shrinking */
 .brand-logo {
-    height: 44px;
+    height: 90px;          /* ✅ bigger */
     width: auto;
-    max-width: 260px;
+    max-width: 320px;      /* ✅ allow wide logo */
     object-fit: contain;
-    transition: .3s;
+    transition: .25s;
 }
 
-/* Nav link style (always dark because navbar is white) */
+/* Nav link style */
 .navbar-light .navbar-nav .nav-link {
     font-family: 'Nunito', sans-serif;
     position: relative;
@@ -119,11 +95,12 @@ header[id] {
     padding: 16px 0;
     color: var(--dark) !important;
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
     outline: none;
-    transition: .3s;
+    transition: .25s;
 }
 
+/* Active + hover color */
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active {
     color: var(--primary) !important;
@@ -136,10 +113,10 @@ header[id] {
         content: "";
         width: 0;
         height: 2px;
-        bottom: -1px;
+        bottom: -2px;
         left: 50%;
         background: var(--primary);
-        transition: .3s;
+        transition: .25s;
     }
 
     .navbar-light .navbar-nav .nav-link:hover::before,
@@ -149,11 +126,16 @@ header[id] {
     }
 }
 
-/* Mobile fixes */
+/* Mobile */
 @media (max-width: 991.98px) {
+    body { padding-top: var(--nav-h-m); }
+
+    section[id],
+    header[id] { scroll-margin-top: 90px; }
+
     .brand-logo {
-        height: 40px;
-        max-width: 220px;
+        height: 48px;
+        max-width: 260px;
     }
 
     .navbar-light .navbar-collapse {
@@ -168,54 +150,48 @@ header[id] {
 }
 
 /* ==========================================================
-   ✅ HERO IMAGE SLIDER (Perfect fit under fixed navbar)
+   ✅ HERO IMAGE SLIDER (Full height under navbar)
    ========================================================== */
-
-/* IMPORTANT:
-   since navbar is fixed-top, hero must start after navbar height.
-   This makes it correct on all screen sizes. */
 .hero-slider {
-    padding-top: 74px;
-    margin-bottom: 50px; /* same as approx navbar height */
-    background: #fff;
-}
-
-/* Make carousel and slides full height */
-.hero-slider .carousel,
-.hero-slider .carousel-inner,
-.hero-slider .carousel-item {
-    height: calc(70vh - 74px); /* full screen minus navbar */
+    margin-bottom: 30px;
+    height: calc(80vh - var(--nav-h));
     min-height: 520px;
 }
 
-/* Image fit */
-.hero-img {
+/* Force carousel to inherit height */
+.hero-slider .carousel,
+.hero-slider .carousel-inner,
+.hero-slider .carousel-item {
     height: 100%;
+}
+
+.hero-slider .carousel-item {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Cover-fit image */
+.hero-slider .hero-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
     object-fit: cover;
 }
 
-/* Remove any overlay / captions */
-.hero-slider .carousel-item::before {
-    display: none !important;
-}
+/* Remove overlay/caption */
+.hero-slider .carousel-item::before { display: none !important; }
+.hero-slider .carousel-caption { display: none !important; }
 
-.hero-slider .carousel-caption {
-    display: none !important;
-}
-
-/* Controls visibility improvement */
+/* Controls */
 .hero-slider .carousel-control-prev,
-.hero-slider .carousel-control-next {
-    opacity: .85;
-}
-
+.hero-slider .carousel-control-next { opacity: .85; }
 .hero-slider .carousel-control-prev:hover,
-.hero-slider .carousel-control-next:hover {
-    opacity: 1;
-}
+.hero-slider .carousel-control-next:hover { opacity: 1; }
 
-/* Indicators style (optional subtle) */
+/* Indicators */
 .hero-slider .carousel-indicators [data-bs-target] {
     width: 10px;
     height: 10px;
@@ -225,32 +201,9 @@ header[id] {
 /* Mobile hero sizing */
 @media (max-width: 767.98px) {
     .hero-slider {
-        padding-top: 66px;
-    }
-
-    section[id],
-    header[id] {
-        scroll-margin-top: 86px;
-    }
-
-    .hero-slider .carousel,
-    .hero-slider .carousel-inner,
-    .hero-slider .carousel-item {
-        height: calc(72vh - 0px);
+        height: 72vh;
         min-height: 420px;
     }
-}
-
-/*** Hero Header (OLD template - keep if used elsewhere) ***/
-.hero-header {
-    background: linear-gradient(rgba(20, 20, 31, .7), rgba(20, 20, 31, .7)), url(../img/bg-hero.png);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-    color: rgba(255, 255, 255, .5);
 }
 
 /*** Section Title ***/
@@ -259,7 +212,6 @@ header[id] {
     display: inline-block;
     text-transform: uppercase;
 }
-
 .section-title::before {
     position: absolute;
     content: "";
@@ -270,7 +222,6 @@ header[id] {
     background: var(--primary);
     z-index: -1;
 }
-
 .section-title::after {
     position: absolute;
     content: "";
@@ -281,12 +232,10 @@ header[id] {
     background: var(--primary);
     z-index: -1;
 }
-
 .section-title.text-start::before {
     width: calc(100% + 40px);
     left: 0;
 }
-
 .section-title.text-start::after {
     width: calc(100% + 60px);
     left: 0;
@@ -297,27 +246,13 @@ header[id] {
     box-shadow: 0 0 45px rgba(0, 0, 0, .08);
     transition: .5s;
 }
-
-.service-item:hover {
-    background: var(--primary);
-}
-
-.service-item * {
-    transition: .5s;
-}
-
-.service-item:hover * {
-    color: var(--light) !important;
-}
+.service-item:hover { background: var(--primary); }
+.service-item * { transition: .5s; }
+.service-item:hover * { color: var(--light) !important; }
 
 /*** Destination (Markets) ***/
-.destination img {
-    transition: .5s;
-}
-
-.destination a:hover img {
-    transform: scale(1.1);
-}
+.destination img { transition: .5s; }
+.destination a:hover img { transform: scale(1.1); }
 
 /*** Footer ***/
 .footer .btn.btn-social {
@@ -333,10 +268,7 @@ header[id] {
     border-radius: 35px;
     transition: .3s;
 }
-
-.footer .btn.btn-social:hover {
-    color: var(--primary);
-}
+.footer .btn.btn-social:hover { color: var(--primary); }
 
 .footer .btn.btn-link {
     display: block;
@@ -349,7 +281,6 @@ header[id] {
     text-transform: capitalize;
     transition: .3s;
 }
-
 .footer .btn.btn-link::before {
     position: relative;
     content: "\f105";
@@ -357,7 +288,6 @@ header[id] {
     font-weight: 900;
     margin-right: 10px;
 }
-
 .footer .btn.btn-link:hover {
     letter-spacing: 1px;
     box-shadow: none;
@@ -368,19 +298,4 @@ header[id] {
     font-size: 15px;
     border-top: 1px solid rgba(256, 256, 256, .1);
 }
-
-.footer .copyright a {
-    color: var(--light);
-}
-
-.footer .footer-menu a {
-    margin-right: 15px;
-    padding-right: 15px;
-    border-right: 1px solid rgba(255, 255, 255, .1);
-}
-
-.footer .footer-menu a:last-child {
-    margin-right: 0;
-    padding-right: 0;
-    border-right: none;
-}
+.footer .copyright a { color: var(--light); }
